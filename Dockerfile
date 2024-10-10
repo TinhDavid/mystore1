@@ -2,7 +2,7 @@
 #ddev-generated - Do not modify this file; your modifications will be overwritten.
 
 ### DDEV-injected base Dockerfile contents
-ARG BASE_IMAGE=drud/ddev-webserver:VERSION
+ARG BASE_IMAGE=ddev/ddev-webserver:VERSION
 FROM $BASE_IMAGE
 SHELL ["/bin/bash", "-c"]
 
