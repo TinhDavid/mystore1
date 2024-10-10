@@ -1,5 +1,4 @@
-
-#ddev-generated - Do not modify this file; your modifications will be overwritten.
+# ddev-generated - Do not modify this file; your modifications will be overwritten.
 
 ### DDEV-injected base Dockerfile contents
 ARG BASE_IMAGE=php:8.3-fpm
@@ -20,10 +19,17 @@ RUN (groupadd --gid $gid "$username" || groupadd "$username" || true) && \
      useradd -l -m -s "/bin/bash" --gid "$gid" --comment '' "$username" || \
      useradd -l -m -s "/bin/bash" --gid "$gid" --comment '' "$username")
 
+# Cài đặt Nginx
+RUN apt-get update && \
+    apt-get install -y nginx && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-### From user Dockerfile C:\Users\DELL\mystore\.ddev\db-build\Dockerfile.example:
+# Tạo cấu hình Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
-#ddev-generated
-# You can copy this Dockerfile.example to Dockerfile to add configuration
-# or packages or anything else to your dbimage
-RUN echo "Built on $(date)" > /build-date.txt
+# Mở cổng 80
+EXPOSE 80
+
+# Chạy cả Nginx và PHP-FPM
+CMD service nginx start && php-fpm
