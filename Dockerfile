@@ -26,7 +26,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Tạo cấu hình Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY .ddev/nginx_full/nginx-site.conf /etc/nginx/nginx.conf
 
 # Mở cổng 80
 EXPOSE 80
