@@ -29,7 +29,7 @@ RUN apt-get update && \
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Mở cổng 80
-EXPOSE 5432
+EXPOSE 80
 
 # Chạy cả Nginx và PHP-FPM
 CMD service nginx start && php-fpm
