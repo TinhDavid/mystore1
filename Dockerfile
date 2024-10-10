@@ -9,12 +9,16 @@ SHELL ["/bin/bash", "-c"]
 ARG TARGETPLATFORM
 ARG TARGETARCH
 ARG TARGETOS
-ARG username
-ARG uid
-ARG gid
+ARG username=defaultuser  # Thêm giá trị mặc định cho username
+ARG uid=1000              # Thêm giá trị mặc định cho uid
+ARG gid=1000              # Thêm giá trị mặc định cho gid
 ARG DDEV_PHP_VERSION
 ARG DDEV_DATABASE
-RUN (groupadd --gid $gid "$username" || groupadd "$username" || true) && (useradd  -l -m -s "/bin/bash" --gid "$username" --comment '' --uid $uid "$username" || useradd  -l -m -s "/bin/bash" --gid "$username" --comment '' "$username" || useradd  -l -m -s "/bin/bash" --gid "$gid" --comment '' "$username" || useradd -l -m -s "/bin/bash" --comment '' $username )
+
+RUN (groupadd --gid $gid "$username" || groupadd "$username" || true) && \
+    (useradd -l -m -s "/bin/bash" --gid "$gid" --comment '' --uid $uid "$username" || \
+     useradd -l -m -s "/bin/bash" --gid "$gid" --comment '' "$username" || \
+     useradd -l -m -s "/bin/bash" --gid "$gid" --comment '' "$username")
 
 
 ### From user Dockerfile C:\Users\DELL\mystore\.ddev\db-build\Dockerfile.example:
